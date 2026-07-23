@@ -1,0 +1,28 @@
+<Window x:Class="FloatTrans.ResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="翻译结果" Height="340" Width="460"
+        Topmost="True" ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen"
+        Background="#FFF6F8FA">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1.4*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="英文(OCR)" FontWeight="SemiBold" Margin="0,0,0,4"/>
+        <TextBox Grid.Row="1" x:Name="EnBox" IsReadOnly="True" TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto" FontSize="13"/>
+        <TextBlock Grid.Row="2" Text="中文(翻译)" FontWeight="SemiBold" Margin="0,8,0,4"/>
+        <TextBox Grid.Row="3" x:Name="ZhBox" IsReadOnly="True" TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto" FontSize="14" FontWeight="SemiBold"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="复制中文" Click="CopyZhClick" Margin="0,0,8,0" Padding="14,4"/>
+            <Button Content="复制英文" Click="CopyEnClick" Margin="0,0,8,0" Padding="14,4"/>
+            <Button Content="关闭" Click="CloseClick" Padding="14,4" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>
