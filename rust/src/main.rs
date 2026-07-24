@@ -7,6 +7,7 @@ mod ocr;
 mod overlay;
 mod result;
 mod state;
+mod tesseract;
 mod translate;
 mod tray;
 
@@ -105,7 +106,6 @@ fn main() -> Result<()> {
         // 初始化全局状态
         let cfg = config::Config::load();
         let ocr_engine = ocr::Ocr::new();
-        let ocr_ok = ocr_engine.available();
         state::init(state::AppState {
             ball_hwnd,
             overlay_hwnd,
@@ -123,14 +123,6 @@ fn main() -> Result<()> {
             last_ocr: String::new(),
             selection_done: false,
         });
-
-        if !ocr_ok {
-            let _ = MessageBoxW(None,
-                w!("未检测到英文 OCR 语言包。\n\n请打开 设置→时间和语言→语言→添加语言\n→ English (United States) → 勾选 OCR"),
-                w!("FloatTrans - OCR 未就绪"),
-                MB_ICONWARNING,
-            );
-        }
 
         // 添加系统托盘图标
         tray::add(ball_hwnd);
