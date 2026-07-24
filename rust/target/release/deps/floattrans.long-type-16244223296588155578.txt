@@ -1,0 +1,1 @@
+std::result::Result<Win32::Foundation::HWND, windows_result::error::Error>: Param<Win32::Foundation::HWND, core::r#type::CopyType>

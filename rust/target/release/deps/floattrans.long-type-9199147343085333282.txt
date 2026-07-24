@@ -1,0 +1,1 @@
+std::result::Result<WindowsAndMessaging::HMENU, windows_result::error::Error>: Param<WindowsAndMessaging::HMENU, core::r#type::CopyType>

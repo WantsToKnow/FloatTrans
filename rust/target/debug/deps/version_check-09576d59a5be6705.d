@@ -1,0 +1,10 @@
+d:\aaa_file\study\FloatTrans\rust\target\debug\deps\version_check-09576d59a5be6705.d: C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\lib.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\version.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\channel.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\date.rs
+
+d:\aaa_file\study\FloatTrans\rust\target\debug\deps\libversion_check-09576d59a5be6705.rlib: C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\lib.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\version.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\channel.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\date.rs
+
+d:\aaa_file\study\FloatTrans\rust\target\debug\deps\libversion_check-09576d59a5be6705.rmeta: C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\lib.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\version.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\channel.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\date.rs
+
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\lib.rs:
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\version.rs:
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\channel.rs:
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\version_check-0.9.5\src\date.rs:

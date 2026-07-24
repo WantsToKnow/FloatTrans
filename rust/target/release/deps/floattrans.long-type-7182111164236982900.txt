@@ -1,0 +1,1 @@
+std::option::Option<Win32::Foundation::HWND>: Param<Win32::Foundation::HWND, core::r#type::CopyType>

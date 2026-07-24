@@ -1,0 +1,10 @@
+d:\aaa_file\study\FloatTrans\rust\target\debug\deps\getrandom-2ffd01141015f08c.d: C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\lib.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\error.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\util.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\windows.rs
+
+d:\aaa_file\study\FloatTrans\rust\target\debug\deps\libgetrandom-2ffd01141015f08c.rlib: C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\lib.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\error.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\util.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\windows.rs
+
+d:\aaa_file\study\FloatTrans\rust\target\debug\deps\libgetrandom-2ffd01141015f08c.rmeta: C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\lib.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\error.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\util.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\windows.rs
+
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\lib.rs:
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\error.rs:
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\util.rs:
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\windows.rs:

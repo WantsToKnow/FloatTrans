@@ -1,0 +1,10 @@
+d:\aaa_file\study\FloatTrans\rust\target\release\deps\getrandom-4fdc3e612880d92c.d: C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\lib.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\error.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\util.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\windows.rs
+
+d:\aaa_file\study\FloatTrans\rust\target\release\deps\libgetrandom-4fdc3e612880d92c.rlib: C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\lib.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\error.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\util.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\windows.rs
+
+d:\aaa_file\study\FloatTrans\rust\target\release\deps\libgetrandom-4fdc3e612880d92c.rmeta: C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\lib.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\error.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\util.rs C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\windows.rs
+
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\lib.rs:
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\error.rs:
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\util.rs:
+C:\Users\link\.cargo\registry\src\mirrors.tuna.tsinghua.edu.cn-4dc01642fd091eda\getrandom-0.2.17\src\windows.rs:
