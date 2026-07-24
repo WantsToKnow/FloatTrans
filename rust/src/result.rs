@@ -75,7 +75,7 @@ pub extern "system" fn result_proc(hwnd: HWND, msg: u32, wp: WPARAM, lp: LPARAM)
                 ctl!(w!("BUTTON"), w!("确定"),
                     WINDOW_STYLE(WS_CHILD.0 | WS_VISIBLE.0 | BS_PUSHBUTTON as u32),
                     436, 340, 96, 30, HMENU(IDC_OK as *mut core::ffi::c_void));
-                ctl!(w!("BUTTON"), w!("持续翻译: 关"),
+                ctl!(w!("BUTTON"), w!("持续翻译: 开"),
                     WINDOW_STYLE(WS_CHILD.0 | WS_VISIBLE.0 | BS_PUSHBUTTON as u32),
                     12, 340, 120, 30, HMENU(IDC_CONTINUOUS as *mut core::ffi::c_void));
 
@@ -86,7 +86,7 @@ pub extern "system" fn result_proc(hwnd: HWND, msg: u32, wp: WPARAM, lp: LPARAM)
                 let _ = SetWindowTextW(GetDlgItem(hwnd, IDC_ZH_TEXT as i32).unwrap_or_default(), &zh_h);
 
                 let boxed = Box::new(ResultData {
-                    en: data.en.clone(), zh: data.zh.clone(), ball_hwnd: data.ball_hwnd, cont_on: false,
+                    en: data.en.clone(), zh: data.zh.clone(), ball_hwnd: data.ball_hwnd, cont_on: true,
                 });
                 let _ = SetWindowLongPtrW(hwnd, GWLP_USERDATA, Box::into_raw(boxed) as isize);
 
@@ -99,6 +99,10 @@ pub extern "system" fn result_proc(hwnd: HWND, msg: u32, wp: WPARAM, lp: LPARAM)
                         );
                     }
                 }
+
+                // 默认开启持续翻译
+                let _ = PostMessageW(data.ball_hwnd, WM_APP_CONTINUOUS_TOGGLE, WPARAM(1), LPARAM(hwnd.0 as isize));
+
                 LRESULT(0)
             }
 
@@ -195,7 +199,7 @@ fn create_ui_font() -> HFONT {
 }
 
 pub fn show(hinst: HINSTANCE, owner: HWND, en: &str, zh: &str) -> Result<HWND> {
-    let data = ResultData { en: en.to_string(), zh: zh.to_string(), ball_hwnd: owner, cont_on: false };
+    let data = ResultData { en: en.to_string(), zh: zh.to_string(), ball_hwnd: owner, cont_on: true };
     let (cx, cy);
     unsafe {
         cx = (GetSystemMetrics(SM_CXSCREEN) - WIN_W) / 2;
