@@ -62,7 +62,3 @@ Windows.Media.Ocr 需要英文识别引擎。如果没装，启动会弹窗提�
 | OCR | Windows.Media.Ocr (WinRT, 离线) |
 | 翻译 | 百度翻译 API (from=auto, to=zh) |
 | 二进制 | **1.4MB** — 无运行时依赖 |
-
-## 发给朋友
-
-把 `floattrans.exe` + `install_ocr.bat` 一起发过去。让他先跑 `install_ocr.bat`（管理员）装 OCR 包，然后注册百度 API，最后运行 exe。
