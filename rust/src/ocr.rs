@@ -13,11 +13,15 @@ fn lang(tag: &str) -> Option<Language> {
     Language::CreateLanguage(&windows::core::HSTRING::from(tag)).ok()
 }
 
+pub const OCR_ERROR: &str = "[OCR 引擎未就绪]\n请安装英文 OCR 语言包:\n设置→时间和语言→语言→添加语言→\nEnglish (United States)→勾选\"OCR\"重试";
+
 impl Ocr {
     pub fn new() -> Self {
         let en = lang("en").and_then(|l| OcrEngine::TryCreateFromLanguage(&l).ok());
         Ocr { en }
     }
+
+    pub fn available(&self) -> bool { self.en.is_some() }
 
     pub fn recognize(&self, bgra: &[u8], w: i32, h: i32) -> Result<String> {
         let en = self.en.as_ref().ok_or_else(|| Error::from(HRESULT(-1)))?;

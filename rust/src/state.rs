@@ -182,6 +182,12 @@ pub fn move_selection(base_start: POINT, base_end: POINT, dx: i32, dy: i32) {
     });
 }
 
+pub fn resize_selection(base_end: POINT, dx: i32, dy: i32) {
+    lock(|s| {
+        s.select_end = POINT { x: base_end.x + dx, y: base_end.y + dy };
+    });
+}
+
 pub fn toggle_continuous(on: bool, result_hwnd_raw: isize) {
     lock(|s| {
         if on {
@@ -220,6 +226,7 @@ pub fn on_continuous_tick() {
     });
 
     if let Some((x, y, w, h, rh, o, last, cfg)) = job {
+        if !o.available() { TICK_RUNNING.store(false, Ordering::Relaxed); return; }
         let rh_raw = rh.0 as usize;
         // 后台线程跑慢操作, 不阻塞主线程(鼠标不卡)
         std::thread::spawn(move || {
@@ -258,7 +265,11 @@ fn process(start: POINT, end: POINT, ball_raw: usize) {
     std::thread::sleep(std::time::Duration::from_millis(100));
 
     let en = match capture::capture(x, y, w, h) {
-        Ok(c) => lock(|s| s.ocr.recognize(&c.bgra, c.width, c.height).unwrap_or_default()),
+        Ok(c) => {
+            let ok = lock(|s| s.ocr.available());
+            if !ok { ocr::OCR_ERROR.to_string() }
+            else { lock(|s| s.ocr.recognize(&c.bgra, c.width, c.height).unwrap_or_default()) }
+        }
         Err(e) => format!("[截图失败] {}", e),
     };
     let cfg = lock(|s| s.cfg.clone());

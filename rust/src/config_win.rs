@@ -3,6 +3,7 @@ use windows::Win32::Foundation::*;
 use windows::Win32::Graphics::Gdi::{
     CreateFontIndirectW, FONT_QUALITY, HFONT, LOGFONTW, FW_NORMAL, CLEARTYPE_NATURAL_QUALITY,
 };
+use windows::Win32::UI::Shell::ShellExecuteW;
 use windows::Win32::UI::WindowsAndMessaging::*;
 
 use crate::{config::Config, state, translate};
@@ -15,9 +16,10 @@ const IDC_HOLD_MS: i32 = 2003;
 const IDC_TEST: i32 = 2004;
 const IDC_SAVE: i32 = 2005;
 const IDC_CANCEL: i32 = 2006;
+const IDC_LINK: i32 = 2007;
 
 const WIN_W: i32 = 420;
-const WIN_H: i32 = 260;
+const WIN_H: i32 = 290;
 
 /// 编辑框 → Rust String
 fn get_text(hwnd: HWND, id: i32) -> String {
@@ -152,6 +154,14 @@ pub extern "system" fn config_win_proc(
                     HMENU(IDC_CANCEL as *mut core::ffi::c_void)
                 );
 
+                // 百度 API 申请链接
+                ctl!(
+                    w!("BUTTON"), w!("申请百度翻译 API →"),
+                    WINDOW_STYLE(WS_CHILD.0 | WS_VISIBLE.0 | BS_PUSHBUTTON as u32),
+                    12, 218, 394, 26,
+                    HMENU(IDC_LINK as *mut core::ffi::c_void)
+                );
+
                 // 从全局状态读取当前配置并填充
                 state::lock(|s| {
                     set_text(hwnd, IDC_APPID, &s.cfg.baidu_app_id);
@@ -162,7 +172,7 @@ pub extern "system" fn config_win_proc(
                 // 设置 Segoe UI + ClearType 字体
                 let hfont = create_ui_font();
                 if !hfont.is_invalid() {
-                    for id in [IDC_APPID, IDC_SECRET, IDC_HOLD_MS] {
+                    for id in [IDC_APPID, IDC_SECRET, IDC_HOLD_MS, IDC_LINK] {
                         let _ = SendMessageW(
                             GetDlgItem(hwnd, id).unwrap_or_default(),
                             WM_SETFONT,
@@ -198,6 +208,17 @@ pub extern "system" fn config_win_proc(
                     }
                     IDC_CANCEL => {
                         let _ = DestroyWindow(hwnd);
+                    }
+                    IDC_LINK => {
+                        // 打开百度翻译 API 注册页面
+                        let _ = ShellExecuteW(
+                            hwnd,
+                            w!("open"),
+                            w!("https://fanyi-api.baidu.com/"),
+                            None,
+                            None,
+                            SW_SHOW,
+                        );
                     }
                     _ => {}
                 }

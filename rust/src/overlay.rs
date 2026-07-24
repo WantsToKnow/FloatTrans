@@ -8,6 +8,7 @@ pub const OVERLAY_CLASS: PCWSTR = w!("FloatTransOverlay");
 
 fn is_continuous() -> bool { crate::state::CONTINUOUS.load(Ordering::Relaxed) }
 static DRAGGING: AtomicBool = AtomicBool::new(false);
+static RESIZING: AtomicBool = AtomicBool::new(false);
 // (mouse_down_point, select_start_at_down, select_end_at_down)
 static DRAG_BASE: std::sync::Mutex<(POINT, POINT, POINT)> = std::sync::Mutex::new((
     POINT { x: 0, y: 0 },
@@ -75,9 +76,23 @@ fn hit_test(hwnd: HWND, px: i32, py: i32) -> bool {
         let ex = e.x - ox; let ey = e.y - oy;
         let rx = sx.min(ex); let ry = sy.min(ey);
         let rw = (sx - ex).abs(); let rh = (sy - ey).abs();
-        // 给框线加 6px 容差, 方便抓住拖动
         const M: i32 = 6;
         px >= rx - M && px <= rx + rw + M && py >= ry - M && py <= ry + rh + M
+    } else {
+        false
+    }
+}
+
+/// 检查是否点在右下角(红十字位置)附近 → 触发 resize
+fn corner_test(hwnd: HWND, px: i32, py: i32) -> bool {
+    if let Some((_, e)) = crate::state::get_selection() {
+        let mut wr = RECT::default();
+        unsafe { let _ = GetWindowRect(hwnd, &mut wr); }
+        let (ox, oy) = (wr.left, wr.top);
+        let ex = e.x - ox;
+        let ey = e.y - oy;
+        const R: i32 = 15;
+        (px - ex).abs() <= R && (py - ey).abs() <= R
     } else {
         false
     }
@@ -114,7 +129,7 @@ pub fn exit_continuous() {
     unsafe { let _ = ShowWindow(hwnd, SW_HIDE); }
 }
 
-/// 钩子: 按下 → 判断框内拖拽还是框外退出
+/// 钩子: 按下 → 判断框内拖拽/右下角拉伸
 pub fn on_down(p: POINT) {
     if !is_continuous() { return; }
     let hwnd = get_hwnd();
@@ -122,25 +137,36 @@ pub fn on_down(p: POINT) {
     unsafe { let _ = GetWindowRect(hwnd, &mut wr); }
     let px = p.x - wr.left;
     let py = p.y - wr.top;
-    if hit_test(hwnd, px, py) {
+    if corner_test(hwnd, px, py) {
+        RESIZING.store(true, Ordering::Relaxed);
+        let (s0, e0) = crate::state::lock(|s| (s.select_start, s.select_end));
+        *DRAG_BASE.lock().unwrap() = (p, s0, e0);
+    } else if hit_test(hwnd, px, py) {
         DRAGGING.store(true, Ordering::Relaxed);
         let (s0, e0) = crate::state::lock(|s| (s.select_start, s.select_end));
         *DRAG_BASE.lock().unwrap() = (p, s0, e0);
     }
-    // 点空地不退出 — 持续翻译只随结果窗关闭结束
 }
 
-/// 钩子: 拖拽移动选框
+/// 钩子: 拖拽移动/拉伸选框
 pub fn on_move(p: POINT) {
-    if !DRAGGING.load(Ordering::Relaxed) { return; }
-    let (base_pt, base_s, base_e) = *DRAG_BASE.lock().unwrap();
-    let dx = p.x - base_pt.x;
-    let dy = p.y - base_pt.y;
-    crate::state::move_selection(base_s, base_e, dx, dy);
-    invalidate(get_hwnd());
+    if RESIZING.load(Ordering::Relaxed) {
+        let (base_pt, _base_s, base_e) = *DRAG_BASE.lock().unwrap();
+        let dx = p.x - base_pt.x;
+        let dy = p.y - base_pt.y;
+        crate::state::resize_selection(base_e, dx, dy);
+        invalidate(get_hwnd());
+    } else if DRAGGING.load(Ordering::Relaxed) {
+        let (base_pt, base_s, base_e) = *DRAG_BASE.lock().unwrap();
+        let dx = p.x - base_pt.x;
+        let dy = p.y - base_pt.y;
+        crate::state::move_selection(base_s, base_e, dx, dy);
+        invalidate(get_hwnd());
+    }
 }
 
 /// 钩子: 松开
 pub fn on_up(_p: POINT) {
     DRAGGING.store(false, Ordering::Relaxed);
+    RESIZING.store(false, Ordering::Relaxed);
 }
