@@ -62,6 +62,13 @@ pub extern "system" fn overlay_proc(hwnd: HWND, msg: u32, wp: WPARAM, lp: LPARAM
                 let _ = EndPaint(hwnd, &ps);
                 LRESULT(0)
             }
+            WM_NCHITTEST => {
+                if is_continuous() {
+                    // 持续模式下始终拦截鼠标, 不穿透到下层
+                    return LRESULT(HTCLIENT as isize);
+                }
+                DefWindowProcW(hwnd, msg, wp, lp)
+            }
             _ => DefWindowProcW(hwnd, msg, wp, lp),
         }
     }
@@ -77,6 +84,25 @@ fn hit_test(hwnd: HWND, px: i32, py: i32) -> bool {
         let rx = sx.min(ex); let ry = sy.min(ey);
         let rw = (sx - ex).abs(); let rh = (sy - ey).abs();
         const M: i32 = 6;
+        px >= rx - M && px <= rx + rw + M && py >= ry - M && py <= ry + rh + M
+    } else {
+        false
+    }
+}
+
+/// 判断屏幕坐标 p 是否在选框内 (供 hook 判断是否消费事件)
+pub fn point_in_selection(p: POINT) -> bool {
+    if let Some((s, e)) = crate::state::get_selection() {
+        let hwnd = get_hwnd();
+        let mut wr = RECT::default();
+        unsafe { let _ = GetWindowRect(hwnd, &mut wr); }
+        let (ox, oy) = (wr.left, wr.top);
+        let sx = s.x - ox; let sy = s.y - oy;
+        let ex = e.x - ox; let ey = e.y - oy;
+        let rx = sx.min(ex); let ry = sy.min(ey);
+        let rw = (sx - ex).abs(); let rh = (sy - ey).abs();
+        let px = p.x - ox; let py = p.y - oy;
+        const M: i32 = 8;
         px >= rx - M && px <= rx + rw + M && py >= ry - M && py <= ry + rh + M
     } else {
         false
@@ -125,6 +151,7 @@ pub fn invalidate(hwnd: HWND) {
 pub fn enter_continuous() {}
 pub fn exit_continuous() {
     DRAGGING.store(false, Ordering::Relaxed);
+    RESIZING.store(false, Ordering::Relaxed);
     let hwnd = get_hwnd();
     unsafe { let _ = ShowWindow(hwnd, SW_HIDE); }
 }
