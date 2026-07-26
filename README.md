@@ -2,12 +2,12 @@
 
 类似安卓 FV 悬浮球，**长按悬浮球 → 框选 → 截图 OCR → 自动翻译**。
 
-解压即用，无需安装任何东西。
+无需安装任何运行时，下载即用。
 
 ## 快速开始
 
-1. 解压 `FloatTrans-1.0-full.zip`
-2. 双击 `floattrans.exe`
+1. `git clone` 本仓库（或直接下载 zip）
+2. 打开 `rust/target/release/floattrans.exe`，双击运行
 3. 屏幕出现蓝色悬浮球
 4. 鼠标停在球上，**长按 0.5s** → 出现红色十字标
 5. 拖动鼠标框选英文区域 → 松开 → 自动识别并翻译成中文
@@ -35,7 +35,7 @@
 
 ### 2. OCR 引擎（已内置，无需额外安装）
 
-完整版 zip 已包含 Tesseract OCR 引擎（`tesseract/` 文件夹），自带英文语言包，解压即用。
+仓库已包含 Tesseract OCR 引擎（`rust/target/release/tesseract/`），clone 即用。
 
 ## 操作说明
 
@@ -51,22 +51,16 @@
 | 托盘右键「配置」 | 修改百度 API 凭据、长按时间 |
 | 托盘右键「退出」 | 退出程序 |
 
-## 手动打包
+## 目录结构
 
 ```
 rust/target/release/
-├── floattrans.exe       ← 主程序
-└── tesseract/           ← OCR 引擎（含 eng 英文包）
+├── floattrans.exe       ← 主程序（直接运行）
+└── tesseract/           ← OCR 引擎（已内置）
     ├── tesseract.exe
     ├── *.dll
     └── tessdata/
         └── eng.traineddata
-```
-
-把这两个一起 zip 即可。命令行打包：
-
-```powershell
-Compress-Archive -Path "rust/target/release/floattrans.exe","rust/target/release/tesseract" -DestinationPath "FloatTrans-1.0-full.zip" -Force
 ```
 
 ## 技术栈
@@ -76,4 +70,4 @@ Compress-Archive -Path "rust/target/release/floattrans.exe","rust/target/release
 | 语言 | Rust (windows-rs 0.58) |
 | OCR | Tesseract 5.0 + 自适应二值化预处理 |
 | 翻译 | 百度翻译 API (from=auto, to=zh) |
-| 二进制 | **~40MB zip**（含 OCR 引擎）— 无运行时依赖 |
+| 二进制 | **~40MB**（含 OCR 引擎）— 无运行时依赖，clone 即用 |
